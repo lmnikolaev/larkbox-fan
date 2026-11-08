@@ -22,7 +22,17 @@ The full analysis of the ACPI tables is in [docs/acpi-analysis.md](docs/acpi-ana
 - Chuwi LarkBox (Celeron J4115). Other Chuwi Gemini Lake models may work too, see [Other models](#other-models).
 - Debian 13 or newer, Ubuntu 23.04 or newer, or any other Debian-based distribution with systemd 253+.
 
-## Installation
+## Quick install
+
+One command downloads the latest release and installs it:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/lmnikolaev/larkbox-fan/main/install.sh | sudo sh
+```
+
+The script checks the model, downloads the `.deb` from [Releases](https://github.com/lmnikolaev/larkbox-fan/releases/latest), moves an old hand-made `larkbox-fan.service` (if any) out of the way and installs the package with `apt`. You can [read it first](install.sh), it's short. If `curl` is missing, run `sudo apt install curl` first.
+
+## Manual installation
 
 1. Download `larkbox-fan_1.0-1_all.deb` from the [Releases](https://github.com/lmnikolaev/larkbox-fan/releases/latest) page.
 2. Install it:

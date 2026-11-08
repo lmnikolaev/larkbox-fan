@@ -22,7 +22,17 @@
 - Chuwi LarkBox (Celeron J4115). Другие модели Chuwi на Gemini Lake тоже могут подойти, см. [Другие модели](#другие-модели).
 - Debian 13 и новее, Ubuntu 23.04 и новее или другой дистрибутив на основе Debian с systemd 253+.
 
-## Установка
+## Быстрая установка
+
+Одна команда скачивает последний релиз и устанавливает его:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/lmnikolaev/larkbox-fan/main/install.sh | sudo sh
+```
+
+Скрипт проверяет модель, скачивает `.deb` со страницы [Releases](https://github.com/lmnikolaev/larkbox-fan/releases/latest), убирает старую самодельную службу `larkbox-fan.service` (если она есть) и ставит пакет через `apt`. Перед запуском его можно [прочитать](install.sh), он короткий. Если `curl` не установлен, сначала выполни `sudo apt install curl`.
+
+## Установка вручную
 
 1. Скачай `larkbox-fan_1.0-1_all.deb` на странице [Releases](https://github.com/lmnikolaev/larkbox-fan/releases/latest).
 2. Установи его:
