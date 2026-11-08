@@ -127,3 +127,7 @@ The polling workaround was first found by **braikin** and **GinKage** on the [Ch
 ## License
 
 [MIT](LICENSE)
+
+## Disclaimer
+
+This project is not affiliated with, endorsed by, or supported by Chuwi. "Chuwi" and "LarkBox" are trademarks of their respective owners and are used here only to identify the hardware this software is intended for.
