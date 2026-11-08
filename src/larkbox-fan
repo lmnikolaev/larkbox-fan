@@ -1,0 +1,39 @@
+#!/bin/sh
+# Chuwi LarkBox fan poller.
+#
+# The BIOS switches the fan inside the ACPI method \_SB.SEN4._TMP:
+# fan on if CPU package > 55 C, off otherwise. Windows (Intel DPTF)
+# polls this sensor; Linux does not. Reading the SEN4 thermal zone
+# temperature makes the firmware switch the fan, just like on Windows.
+
+INTERVAL=${LARKBOX_FAN_INTERVAL:-5}
+
+find_zone() {
+    for t in /sys/class/thermal/thermal_zone*/type; do
+        [ -r "$t" ] || continue
+        if [ "$(cat "$t")" = SEN4 ]; then
+            echo "${t%type}temp"
+            return 0
+        fi
+    done
+    return 1
+}
+
+# Wait up to 60 s for the int3403 driver to register SEN4.
+i=0
+until z=$(find_zone); do
+    i=$((i + 1))
+    if [ "$i" -ge 12 ]; then
+        echo "SEN4 thermal zone not found - nothing to do on this machine." >&2
+        exit 0
+    fi
+    sleep 5
+done
+echo "Polling $z every ${INTERVAL}s"
+
+while :; do
+    # Re-resolve if the zone disappears (driver reload, renumbering).
+    [ -r "$z" ] || z=$(find_zone) || { sleep "$INTERVAL"; continue; }
+    cat "$z" >/dev/null 2>&1
+    sleep "$INTERVAL"
+done

@@ -1,0 +1,23 @@
+larkbox-fan - fan control for Chuwi LarkBox (Celeron J4115) on Linux
+
+The LarkBox BIOS switches its 2-wire fan inside the ACPI method
+\_SB.SEN4._TMP (DPTF temperature sensor "Thermistor Skin", INT3403):
+if the CPU package temperature is above 55 C it drives a GPIO high
+(fan on), otherwise low (fan off). The method only runs when something
+reads the SEN4 temperature. Windows' Intel DPTF service polls it every
+few seconds; Linux never does, so the fan gets stuck in its last state.
+
+This package installs a tiny systemd service that reads
+/sys/class/thermal/thermal_zoneN/temp of the SEN4 zone every 5 seconds.
+The firmware then switches the fan exactly like on Windows.
+
+The service only starts on machines whose SMBIOS product name starts
+with "LarkBox", and exits quietly if no SEN4 thermal zone exists.
+
+Check:   systemctl status larkbox-fan
+Logs:    journalctl -u larkbox-fan
+Interval: systemctl edit larkbox-fan, then add
+          [Service]
+          Environment=LARKBOX_FAN_INTERVAL=2
+
+Project page: https://github.com/lmnikolaev/larkbox-fan

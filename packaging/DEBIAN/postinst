@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+if [ "$1" = configure ]; then
+    deb-systemd-helper enable larkbox-fan.service >/dev/null || true
+    if [ -d /run/systemd/system ]; then
+        systemctl daemon-reload || true
+        deb-systemd-invoke restart larkbox-fan.service >/dev/null || true
+    fi
+fi

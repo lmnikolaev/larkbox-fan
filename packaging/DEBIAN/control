@@ -1,0 +1,14 @@
+Package: larkbox-fan
+Version: 1.0-1
+Architecture: all
+Maintainer: Nikolai <lmnikolaev@users.noreply.github.com>
+Homepage: https://github.com/lmnikolaev/larkbox-fan
+Depends: systemd (>= 253)
+Section: admin
+Priority: optional
+Description: fan control for Chuwi LarkBox mini PC
+ The Chuwi LarkBox BIOS only switches the fan when the ACPI temperature
+ sensor SEN4 is read. Windows polls it through Intel DPTF, Linux does not,
+ so the fan is randomly stuck on or off. This package installs a small
+ systemd service that polls SEN4 every 5 seconds, restoring the Windows
+ behaviour (fan on above 55 C, off below).
