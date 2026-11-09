@@ -43,7 +43,7 @@ curl -fsSL https://raw.githubusercontent.com/lmnikolaev/larkbox-fan/main/install
    ```sh
    systemctl status larkbox-fan
    ```
-   Должно быть `active (running)` и строка журнала вида `Polling /sys/class/thermal/thermal_zone2/temp every 5s`.
+   Должно быть `active (running)` и строка журнала вида `Polling /sys/class/thermal/thermal_zone2/temp every 5s` (номер зоны у тебя может быть другим).
 
 Служба запускается автоматически при каждой загрузке.
 

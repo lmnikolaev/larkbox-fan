@@ -43,7 +43,7 @@ The script checks the model, downloads the `.deb` from [Releases](https://github
    ```sh
    systemctl status larkbox-fan
    ```
-   You should see `active (running)` and a log line like `Polling /sys/class/thermal/thermal_zone2/temp every 5s`.
+   You should see `active (running)` and a log line like `Polling /sys/class/thermal/thermal_zone2/temp every 5s` (the zone number may differ on your machine).
 
 The service starts automatically on every boot.
 

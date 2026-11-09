@@ -90,7 +90,15 @@ That explains every symptom reported for Linux:
 - `thermald` helps on some systems, because it happens to read `SEN4`;
 - toggling BIOS fan options changes nothing.
 
-It was confirmed experimentally: with the CPU below 55 °C, `cat /sys/class/thermal/thermal_zone2/temp` stops a running fan instantly. Under load above 55 °C, the same command starts it.
+It was confirmed experimentally by reading the `temp` file of the `SEN4` zone: with the CPU below 55 °C, `cat /sys/class/thermal/thermal_zoneN/temp` stops a running fan instantly. Under load above 55 °C, the same command starts it.
+
+**The zone number `N` is not fixed.** Thermal zones are numbered in the order drivers register them, so the number can change between boots and kernels. On the test machine `SEN4` was `thermal_zone2` at first and `thermal_zone1` after later boots. Always find the zone by its `type`:
+
+```sh
+grep -lx SEN4 /sys/class/thermal/thermal_zone*/type
+```
+
+That's why `larkbox-fan` looks the zone up by name instead of hard-coding a number.
 
 ## 4. Unrelated: `_PTS` and GPIO_214
 
